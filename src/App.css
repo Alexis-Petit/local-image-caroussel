@@ -8,8 +8,9 @@
 }
 
 .random-image {
-  height: 40vmin;
-  max-height: 40vmin;
+  height: 80vmin;
+  max-height: 80vmin;
+  max-width: 95vw;
   pointer-events: none;
 }
 

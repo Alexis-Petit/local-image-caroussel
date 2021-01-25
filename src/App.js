@@ -9,7 +9,9 @@ function App() {
   const [image, setImage] = useState(null)
   const [files, setFiles] = useState(null)
   const [countdownValue, setCountdownValue] = useState(60000)
+  const [pauseButtonText, setPauseButtonText] = useState("Pause")
   const countdown = useRef(null)
+
 
   const updateImage = async () => {
     if (files && files.length>0) {
@@ -68,16 +70,28 @@ function App() {
     updateImage()
   }
 
+  const pauseHandler = (e) => {
+    const api = countdown.current.getApi()
+    if (api.isPaused()) {
+      api.start()
+    } 
+    else {
+      api.pause()
+    }
+  }
+
   return (
     <div className="App">
       <header className="App-header">
         {image === null ? <img src={logo} className="App-logo" alt="logo" /> : <img src={image} className="random-image" alt="logo" />}
         <button onClick={folderPickHandler}>Pick a folder</button>
         <button disabled={!files} onClick={startHandler}>Start</button>
+        <button disabled={!files} onClick={pauseHandler}>Pause/Unpause</button>
         <Countdown
           ref={countdown}
           onComplete={updateImage}
           autoStart={false}
+          controlled={false}
           date={Date.now() + countdownValue} />
         <div onChange={onChangeCountdownValue}>
           <input defaultChecked={countdownValue===3000} type="radio" value="3000" name="gender" /> 3s
@@ -87,7 +101,6 @@ function App() {
           <input defaultChecked={countdownValue===120000} type="radio" value="120000" name="gender" /> 2m
           <input defaultChecked={countdownValue===300000} type="radio" value="300000" name="gender" /> 5m
         </div>
-    
       </header>
     </div>
   );

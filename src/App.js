@@ -103,7 +103,7 @@ function App() {
           <input defaultChecked={countdownValue===600000} type="radio" value="600000" name="gender" /> 10m
           <input defaultChecked={countdownValue===900000} type="radio" value="900000" name="gender" /> 15m
         </div>
-      </header
+      </header>
     </div>
   );
 }
